@@ -1,8 +1,7 @@
 <?php
 
-use domain\beans\Pokemon;
-
 include_once "domain/beans/Pokemon.php";
+include_once "domain/service/PokemonService.php";
 
 class PokemonPresenter {
 

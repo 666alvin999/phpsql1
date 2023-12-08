@@ -1,6 +1,5 @@
 <?php
 
-namespace domain\beans;
 class Stat {
 
     private int $hp;

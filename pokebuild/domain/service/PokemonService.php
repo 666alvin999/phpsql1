@@ -1,15 +1,11 @@
 <?php
 
-namespace infrastructure;
-
-use domain\beans\Pokemon;
-
 class PokemonService {
 
     public function convertPokemonToArray(Pokemon $pokemon) {
         $preEvolution = "none";
 
-        if (get_class($pokemon) == "PreEvolution") {
+        if (get_class($pokemon->getPreEvolution()) == "PreEvolution") {
             $preEvolution = array(
                 'name' => $pokemon->getPreEvolution()->getName(),
                 'pokedexId' => $pokemon->getPreEvolution()->getPokedexId()
@@ -18,6 +14,7 @@ class PokemonService {
 
         return array(
             'id' => $pokemon->getId(),
+            'pokedexId' => $pokemon->getPokedexId(),
             'name' => $pokemon->getName(),
             'imageUrl' => $pokemon->getImageUrl(),
             'spriteUrl' => $pokemon->getSpriteUrl(),
@@ -32,8 +29,7 @@ class PokemonService {
             'types' => $pokemon->getTypes()->getArrayCopy(),
             'ability' => $pokemon->getAbility(),
             'generation' => $pokemon->getGeneration(),
-            'resistances' => $pokemon->getResistances()->getArrayCopy(),
-            'vulnerabilities' => $pokemon->getVulnerabilities()->getArrayCopy(),
+            'typeAffinities' => $pokemon->getTypeAffinities()->getArrayCopy(),
             'preEvolution' => $preEvolution,
             'evolutions' => $pokemon->getEvolutions()->getArrayCopy()
         );

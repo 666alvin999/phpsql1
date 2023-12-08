@@ -1,7 +1,5 @@
 <?php
 
-namespace infrastructure\dto;
-
 class ResistanceModifyingAbilitiesForApi {
 
     private string $name;

@@ -1,7 +1,5 @@
 <?php
 
-namespace domain\beans;
-
 class PreEvolution {
 
     private string $name;

@@ -1,11 +1,5 @@
 <?php
 
-namespace infrastructure\dto;
-
-use ArrayObject;
-use domain\beans\PreEvolution;
-use domain\beans\Stat;
-
 include_once "domain/beans/Stat.php";
 
 class PokemonData {
@@ -46,6 +40,10 @@ class PokemonData {
         return $this->id;
     }
 
+    public function getPokedexId(): int {
+        return $this->pokedexId;
+    }
+
     public function getName(): string {
         return $this->name;
     }
@@ -56,6 +54,10 @@ class PokemonData {
 
     public function getSprite(): string {
         return $this->sprite;
+    }
+
+    public function getSlug(): string {
+        return $this->slug;
     }
 
     public function getStats(): Stat {

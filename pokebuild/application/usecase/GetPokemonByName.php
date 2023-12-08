@@ -1,11 +1,5 @@
 <?php
 
-namespace application\usecase;
-
-use PokemonPort;
-use PokemonPresenter;
-use port\GetPokemonByNamePort;
-
 include_once "domain/beans/Pokemon.php";
 include_once "application/port/PokemonPort.php";
 include_once "application/presenter/PokemonPresenter.php";

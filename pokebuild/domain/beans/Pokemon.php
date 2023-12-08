@@ -1,12 +1,9 @@
 <?php
 
-namespace domain\beans;
-
-use ArrayObject;
-
 class Pokemon {
 
     private int $id;
+    private int $poxedexId;
     private string $name;
     private string $imageUrl;
     private string $spriteUrl;
@@ -14,13 +11,13 @@ class Pokemon {
     private ArrayObject $types;
     private string $ability;
     private int $generation;
-    private ArrayObject $resistances;
-    private ArrayObject $vulnerabilities;
+    private ArrayObject $typeAffinities;
     private PreEvolution | string $preEvolution;
     private ArrayObject $evolutions;
 
-    public function __construct(int $id, string $name, string $imageUrl, string $spriteUrl, Stat $stat, ArrayObject $types, string $ability, int $generation, ArrayObject $resistances, ArrayObject $vulnerabilities, PreEvolution | string $preEvolution, ArrayObject $evolutions) {
+    public function __construct(int $id, int $poxedexId, string $name, string $imageUrl, string $spriteUrl, Stat $stat, ArrayObject $types, string $ability, int $generation, ArrayObject $typeAffinities, PreEvolution | string $preEvolution, ArrayObject $evolutions) {
         $this->id = $id;
+        $this->poxedexId = $poxedexId;
         $this->name = $name;
         $this->imageUrl = $imageUrl;
         $this->spriteUrl = $spriteUrl;
@@ -28,14 +25,17 @@ class Pokemon {
         $this->types = $types;
         $this->ability = $ability;
         $this->generation = $generation;
-        $this->resistances = $resistances;
-        $this->vulnerabilities = $vulnerabilities;
+        $this->typeAffinities = $typeAffinities;
         $this->preEvolution = $preEvolution;
         $this->evolutions = $evolutions;
     }
 
     public function getId(): int {
         return $this->id;
+    }
+
+    public function getPokedexId(): int {
+        return $this->poxedexId;
     }
 
     public function getName(): string {
@@ -66,15 +66,11 @@ class Pokemon {
         return $this->generation;
     }
 
-    public function getResistances(): ArrayObject {
-        return $this->resistances;
+    public function getTypeAffinities(): ArrayObject {
+        return $this->typeAffinities;
     }
 
-    public function getVulnerabilities(): ArrayObject {
-        return $this->vulnerabilities;
-    }
-
-    public function getPreEvolution(): string {
+    public function getPreEvolution(): PreEvolution|string {
         return $this->preEvolution;
     }
 

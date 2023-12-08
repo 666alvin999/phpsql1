@@ -9,7 +9,7 @@
 </head>
 <body>
 <section id="registered-pokemon">
-    <?php $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/entrypoint.php")); ?>
+    <?php $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/entrypoint.php?name=Tortipouss")); ?>
 
     <div id="pokemons-grid">
             <div class="pokemon-card">
@@ -18,6 +18,7 @@
                 <?= $pokemons->name . " #" . $pokemons->id?>
 
                 <div class="pokemon-family">
+
                     <?php if(gettype($pokemons->preEvolution) != "string") :?>
                         <?= $pokemons->preEvolution->name . " #" . $pokemons->preEvolution->id?>
                     <?php endif ?>

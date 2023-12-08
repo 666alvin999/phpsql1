@@ -1,12 +1,7 @@
 <?php
 
-namespace presentation\controller;
-
-use port\GetPokemonByIdPort;
-use port\GetPokemonByNamePort;
-
-include_once("port\GetPokemonByIdPort.php");
-include_once("port\GetPokemonByNamePort.php");
+include_once "presentation/port/GetPokemonByIdPort.php";
+include_once "presentation/port/GetPokemonByNamePort.php";
 
 class PokemonController {
 

@@ -1,11 +1,5 @@
 <?php
 
-namespace application\usecase;
-
-use PokemonPort;
-use PokemonPresenter;
-use port\GetPokemonByIdPort;
-
 include_once "domain/beans/Pokemon.php";
 include_once "application/port/PokemonPort.php";
 include_once "application/presenter/PokemonPresenter.php";
@@ -21,7 +15,7 @@ class GetPokemonById implements GetPokemonByIdPort {
         $this->pokemonPresenter = $pokemonPresenter;
     }
 
-    public function execute(int $id): array {
+    public function execute(int $id): false|string {
         $pokemon = $this->pokemonPort->getPokemonById($id);
         return $this->pokemonPresenter->present($pokemon);
     }
