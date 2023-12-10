@@ -35,7 +35,7 @@ class RegisteredPokemonDataDao {
     public function insertPokemonData(Pokemon $pokemon) {
         $typefield = $pokemon->getTypes()[0]->name;
 
-        if ($pokemon->getTypes()->count() == 2) {
+        if (count($pokemon->getTypes()) == 2) {
             $typefield = $typefield . ';' . $pokemon->getTypes()[1]->name;
         }
 
@@ -57,7 +57,7 @@ class RegisteredPokemonDataDao {
 
         $sql = $sql . ');';
 
-        $query = $this->database->prepare($sql)->execute();
+        $this->database->prepare($sql)->execute();
     }
 
 }

@@ -26,12 +26,12 @@ class PokemonService {
                 'Spe. Defense' => $pokemon->getStat()->getSpeDef(),
                 'Speed' => $pokemon->getStat()->getSpeed()
             ),
-            'types' => $pokemon->getTypes()->getArrayCopy(),
+            'types' => $pokemon->getTypes(),
             'ability' => $pokemon->getAbility(),
             'generation' => $pokemon->getGeneration(),
-            'typeAffinities' => $pokemon->getTypeAffinities()->getArrayCopy(),
+            'typeAffinities' => $pokemon->getTypeAffinities(),
             'preEvolution' => $preEvolution,
-            'evolutions' => $pokemon->getEvolutions()->getArrayCopy()
+            'evolutions' => $pokemon->getEvolutions()
         );
     }
 

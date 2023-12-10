@@ -9,27 +9,23 @@ class PokemonData {
     private string $name;
     private string $image;
     private string $sprite;
-    private string $slug;
     private Stat $stats;
-    private ArrayObject $apiTypes;
+    private array $apiTypes;
     private int $apiGeneration;
-    private ArrayObject $apiResistances;
-    private ResistanceModifyingAbilitiesForApi|ArrayObject $resistanceModifyingAbilitiesForApi;
-    private ArrayObject $apiEvolutions;
+    private ResistanceModifyingAbilitiesForApi|string $resistanceModifyingAbilitiesForApi;
+    private array $apiEvolutions;
     private PreEvolution|string $apiPreEvolution;
-    private ArrayObject $apiResistancesWithAbilities;
+    private array $apiResistancesWithAbilities;
 
-    public function __construct(int $id, int $pokedexId, string $name, string $image, string $sprite, string $slug, Stat $stats, ArrayObject $apiTypes, int $apiGeneration, ArrayObject $apiResistances, ResistanceModifyingAbilitiesForApi|ArrayObject $resistanceModifyingAbilitiesForApi, ArrayObject $apiEvolutions, PreEvolution|string $apiPreEvolution, ArrayObject $apiResistancesWithAbilities) {
+    public function __construct(int $id, int $pokedexId, string $name, string $image, string $sprite, Stat $stats, array $apiTypes, int $apiGeneration, ResistanceModifyingAbilitiesForApi|string $resistanceModifyingAbilitiesForApi, array $apiEvolutions, PreEvolution|string $apiPreEvolution, array $apiResistancesWithAbilities) {
         $this->id = $id;
         $this->pokedexId = $pokedexId;
         $this->name = $name;
         $this->image = $image;
         $this->sprite = $sprite;
-        $this->slug = $slug;
         $this->stats = $stats;
         $this->apiTypes = $apiTypes;
         $this->apiGeneration = $apiGeneration;
-        $this->apiResistances = $apiResistances;
         $this->resistanceModifyingAbilitiesForApi = $resistanceModifyingAbilitiesForApi;
         $this->apiEvolutions = $apiEvolutions;
         $this->apiPreEvolution = $apiPreEvolution;
@@ -56,15 +52,11 @@ class PokemonData {
         return $this->sprite;
     }
 
-    public function getSlug(): string {
-        return $this->slug;
-    }
-
     public function getStats(): Stat {
         return $this->stats;
     }
 
-    public function getApiTypes(): ArrayObject {
+    public function getApiTypes(): array {
         return $this->apiTypes;
     }
 
@@ -72,15 +64,11 @@ class PokemonData {
         return $this->apiGeneration;
     }
 
-    public function getApiResistances(): ArrayObject {
-        return $this->apiResistances;
-    }
-
     public function getResistanceModifyingAbilitiesForApi(): ResistanceModifyingAbilitiesForApi|ArrayObject {
         return $this->resistanceModifyingAbilitiesForApi;
     }
 
-    public function getApiEvolutions(): ArrayObject {
+    public function getApiEvolutions(): array {
         return $this->apiEvolutions;
     }
 
@@ -88,7 +76,7 @@ class PokemonData {
         return $this->apiPreEvolution;
     }
 
-    public function getApiResistancesWithAbilities(): ArrayObject {
+    public function getApiResistancesWithAbilities(): array {
         return $this->apiResistancesWithAbilities;
     }
 

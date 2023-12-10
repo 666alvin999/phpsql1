@@ -8,14 +8,14 @@ class Pokemon {
     private string $imageUrl;
     private string $spriteUrl;
     private Stat $stat;
-    private ArrayObject $types;
+    private array $types;
     private string $ability;
     private int $generation;
-    private ArrayObject $typeAffinities;
+    private array $typeAffinities;
     private PreEvolution | string $preEvolution;
-    private ArrayObject $evolutions;
+    private array $evolutions;
 
-    public function __construct(int $id, int $poxedexId, string $name, string $imageUrl, string $spriteUrl, Stat $stat, ArrayObject $types, string $ability, int $generation, ArrayObject $typeAffinities, PreEvolution | string $preEvolution, ArrayObject $evolutions) {
+    public function __construct(int $id, int $poxedexId, string $name, string $imageUrl, string $spriteUrl, Stat $stat, array $types, string $ability, int $generation, array $typeAffinities, PreEvolution | string $preEvolution, array $evolutions) {
         $this->id = $id;
         $this->poxedexId = $poxedexId;
         $this->name = $name;
@@ -54,7 +54,7 @@ class Pokemon {
         return $this->stat;
     }
 
-    public function getTypes(): ArrayObject {
+    public function getTypes(): array {
         return $this->types;
     }
 
@@ -66,7 +66,7 @@ class Pokemon {
         return $this->generation;
     }
 
-    public function getTypeAffinities(): ArrayObject {
+    public function getTypeAffinities(): array {
         return $this->typeAffinities;
     }
 
@@ -74,7 +74,7 @@ class Pokemon {
         return $this->preEvolution;
     }
 
-    public function getEvolutions(): ArrayObject {
+    public function getEvolutions(): array {
         return $this->evolutions;
     }
 

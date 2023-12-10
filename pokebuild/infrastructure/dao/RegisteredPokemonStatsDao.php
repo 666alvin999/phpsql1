@@ -20,4 +20,24 @@ class RegisteredPokemonStatsDao {
         }
     }
 
+    public function getPokemonStatById(int $id): Object|bool {
+        $query = $this->database->prepare("SELECT * FROM POKEMON_STAT WHERE ID = $id");
+        $query->execute();
+        return $query->fetch();
+    }
+
+    public function insertPokemonStat(Pokemon $pokemon) {
+        $sql = 'INSERT INTO POKEMON_STAT VALUES ('
+            . $pokemon->getId() . ', '
+            . $pokemon->getStat()->getHp() . ', '
+            . $pokemon->getStat()->getAttack() . ', '
+            . $pokemon->getStat()->getDefense() . ', '
+            . $pokemon->getStat()->getSpeAttack() . ', '
+            . $pokemon->getStat()->getSpeDef() . ', '
+            . $pokemon->getStat()->getSpeed() . ');';
+
+        $this->database->prepare($sql)->execute();
+    }
+
+
 }

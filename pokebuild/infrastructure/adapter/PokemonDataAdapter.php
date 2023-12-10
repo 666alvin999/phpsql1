@@ -9,13 +9,16 @@ class PokemonDataAdapter implements PokemonPort {
 
     private PokemonDataFetcher $pokemonDataFetcher;
     private RegisteredPokemonDataDao $registeredPokemonDataDao;
+    private RegisteredPokemonStatsDao $registeredPokemonStatsDao;
     private PokemonDataMapper $pokemonDataMapper;
 
-    public function __construct(PokemonDataFetcher $pokemonDataFetcher, RegisteredPokemonDataDao $registeredPokemonDataDao, PokemonDataMapper $pokemonDataMapper) {
+    public function __construct(PokemonDataFetcher $pokemonDataFetcher, RegisteredPokemonDataDao $registeredPokemonDataDao, RegisteredPokemonStatsDao $registeredPokemonStatsDao, PokemonDataMapper $pokemonDataMapper) {
         $this->pokemonDataFetcher = $pokemonDataFetcher;
         $this->registeredPokemonDataDao = $registeredPokemonDataDao;
+        $this->registeredPokemonStatsDao = $registeredPokemonStatsDao;
         $this->pokemonDataMapper = $pokemonDataMapper;
     }
+
 
     public function getPokemonByName(string $name): ?Pokemon {
         $knownPokemonData = $this->registeredPokemonDataDao->getPokemonDataByName($name);
@@ -26,8 +29,8 @@ class PokemonDataAdapter implements PokemonPort {
             if ($pokemonData) {
                 $pokemon = $this->pokemonDataMapper->mapToPokemonFromFetcher($pokemonData);
                 $this->registeredPokemonDataDao->insertPokemonData($pokemon);
-//                $this->registeredPokemonStatDao->insertPokemonStat($pokemon->getStat());
-//                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon->getEvolutions());
+                $this->registeredPokemonStatsDao->insertPokemonStat($pokemon);
+                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon->getEvolutions());
 //                $this->registeredPokemonTypeAffinities->insertPokemonAffinities($pokemon->getResistances(), $pokemon->getVulnerabilities());
 
                 return $pokemon;
@@ -35,8 +38,8 @@ class PokemonDataAdapter implements PokemonPort {
 
             return null;
         }
-//
-//        $knownPokemonData = $this->registeredPokemonStatDao->getPokemonStatByName($name);
+
+        $knownPokemonData = $this->registeredPokemonStatsDao->getPokemonStatById($knownPokemonData['ID']);
 //        $knownPokemonData = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsByName($name);
 //        $knownPokemonData = $this->registeredPokemonTypeAffinities->getPokemonTypeAffinitiesByName($name);
 

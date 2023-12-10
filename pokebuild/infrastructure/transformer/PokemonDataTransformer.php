@@ -28,7 +28,6 @@ class PokemonDataTransformer {
             $jsonData->name,
             $jsonData->image,
             $jsonData->sprite,
-            $jsonData->slug,
             new Stat(
                 $jsonData->stats->HP,
                 $jsonData->stats->attack,
@@ -37,13 +36,12 @@ class PokemonDataTransformer {
                 $jsonData->stats->special_defense,
                 $jsonData->stats->speed,
             ),
-            new ArrayObject($jsonData->apiTypes),
+            $jsonData->apiTypes,
             $jsonData->apiGeneration,
-            new ArrayObject($jsonData->apiResistances),
             $resistanceModifyingAbilitiesForApi,
-            new ArrayObject($jsonData->apiEvolutions),
+            $jsonData->apiEvolutions,
             $apiPreEvolution,
-            new ArrayObject($jsonData->apiResistancesWithAbilities)
+            $jsonData->apiResistancesWithAbilities
         );
     }
 

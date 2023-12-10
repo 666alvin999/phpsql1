@@ -6,7 +6,7 @@ include_once "infrastructure/dto/PokemonData.php";
 class PokemonDataMapper {
 
     public function mapToPokemonFromFetcher(PokemonData $pokemonData): Pokemon {
-        $resistanceModifyingAbilitiesForApi = get_class($pokemonData->getResistanceModifyingAbilitiesForApi()) != "ArrayObject" ? $pokemonData->getResistanceModifyingAbilitiesForApi()->getName() : "none";
+        $resistanceModifyingAbilitiesForApi = get_class($pokemonData->getResistanceModifyingAbilitiesForApi()) != "array" ? $pokemonData->getResistanceModifyingAbilitiesForApi()->getName() : "none";
 
         return new Pokemon(
             $pokemonData->getId(),
@@ -42,12 +42,12 @@ class PokemonDataMapper {
                 $pokemonStat['SPE_DEFENSE'],
                 $pokemonStat['SPEED']
             ),
-            new ArrayObject(explode(";", $pokemonData['TYPES'])),
+            explode(";", $pokemonData['TYPES']),
             $resistanceModifyingAbilitiesForApi,
             $pokemonData['GENERATION'],
-            new ArrayObject($pokemonTypeAffinities),
+            (array)$pokemonTypeAffinities,
             $preEvolution,
-            new ArrayObject($pokemonEvolutions)
+            (array)$pokemonEvolutions
         );
     }
 
