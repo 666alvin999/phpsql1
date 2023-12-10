@@ -20,10 +20,10 @@ class RegisteredPokemonStatsDao {
         }
     }
 
-    public function getPokemonStatById(int $id): Object|bool {
+    public function getPokemonStatById(int $id): Stat {
         $query = $this->database->prepare("SELECT * FROM POKEMON_STAT WHERE ID = $id");
         $query->execute();
-        return $query->fetch();
+        return PokemonDataTransformer::createPokemonStatFromObject($query->fetch());
     }
 
     public function insertPokemonStat(Pokemon $pokemon) {

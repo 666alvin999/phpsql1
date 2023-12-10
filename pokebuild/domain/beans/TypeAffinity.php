@@ -2,16 +2,16 @@
 
 class TypeAffinity {
 
-    private string $name;
+    private string $typeName;
     private float $damageMultiplier;
 
     public function __construct(string $name, float $damageMultiplier) {
-        $this->name = $name;
+        $this->typeName = $name;
         $this->damageMultiplier = $damageMultiplier;
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getTypeName(): string {
+        return $this->typeName;
     }
 
     public function getDamageMultiplier(): float {

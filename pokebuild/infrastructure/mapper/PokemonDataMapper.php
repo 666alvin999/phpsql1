@@ -6,7 +6,7 @@ include_once "infrastructure/dto/PokemonData.php";
 class PokemonDataMapper {
 
     public function mapToPokemonFromFetcher(PokemonData $pokemonData): Pokemon {
-        $resistanceModifyingAbilitiesForApi = get_class($pokemonData->getResistanceModifyingAbilitiesForApi()) != "array" ? $pokemonData->getResistanceModifyingAbilitiesForApi()->getName() : "none";
+        $resistanceModifyingAbilitiesForApi = gettype($pokemonData->getResistanceModifyingAbilitiesForApi()) != "array" ? $pokemonData->getResistanceModifyingAbilitiesForApi()->getName() : "none";
 
         return new Pokemon(
             $pokemonData->getId(),
@@ -24,7 +24,7 @@ class PokemonDataMapper {
         );
     }
 
-    public function mapToPokemonFromDaos(Object $pokemonData, Object $pokemonStat, Object $pokemonEvolutions, Object $pokemonTypeAffinities): Pokemon {
+    public function mapToPokemonFromDaos(Object $pokemonData, Stat $pokemonStat, array $pokemonEvolutions, array $pokemonTypeAffinities): Pokemon {
         $resistanceModifyingAbilitiesForApi = $pokemonData['ABILITY'] != "NULL" ? $pokemonData['ABILITY'] : "none";
         $preEvolution = $pokemonData['PRE_EVOLUTION'] != "NULL" ? $pokemonData['PRE_EVOLUTION'] : "none";
 
@@ -34,20 +34,13 @@ class PokemonDataMapper {
             $pokemonData['NAME'],
             $pokemonData['IMAGE_URL'],
             $pokemonData['SPRITE_URL'],
-            new Stat(
-                $pokemonStat['HP'],
-                $pokemonStat['ATTACK'],
-                $pokemonStat['DEFENSE'],
-                $pokemonStat['SPE_ATTACK'],
-                $pokemonStat['SPE_DEFENSE'],
-                $pokemonStat['SPEED']
-            ),
+            $pokemonStat,
             explode(";", $pokemonData['TYPES']),
             $resistanceModifyingAbilitiesForApi,
             $pokemonData['GENERATION'],
-            (array)$pokemonTypeAffinities,
+            $pokemonTypeAffinities,
             $preEvolution,
-            (array)$pokemonEvolutions
+            $pokemonEvolutions
         );
     }
 

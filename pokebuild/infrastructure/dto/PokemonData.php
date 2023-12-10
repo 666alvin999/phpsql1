@@ -12,12 +12,12 @@ class PokemonData {
     private Stat $stats;
     private array $apiTypes;
     private int $apiGeneration;
-    private ResistanceModifyingAbilitiesForApi|string $resistanceModifyingAbilitiesForApi;
+    private ResistanceModifyingAbilitiesForApi|array $resistanceModifyingAbilitiesForApi;
     private array $apiEvolutions;
     private PreEvolution|string $apiPreEvolution;
     private array $apiResistancesWithAbilities;
 
-    public function __construct(int $id, int $pokedexId, string $name, string $image, string $sprite, Stat $stats, array $apiTypes, int $apiGeneration, ResistanceModifyingAbilitiesForApi|string $resistanceModifyingAbilitiesForApi, array $apiEvolutions, PreEvolution|string $apiPreEvolution, array $apiResistancesWithAbilities) {
+    public function __construct(int $id, int $pokedexId, string $name, string $image, string $sprite, Stat $stats, array $apiTypes, int $apiGeneration, ResistanceModifyingAbilitiesForApi|array $resistanceModifyingAbilitiesForApi, array $apiEvolutions, PreEvolution|string $apiPreEvolution, array $apiResistancesWithAbilities) {
         $this->id = $id;
         $this->pokedexId = $pokedexId;
         $this->name = $name;
@@ -64,7 +64,7 @@ class PokemonData {
         return $this->apiGeneration;
     }
 
-    public function getResistanceModifyingAbilitiesForApi(): ResistanceModifyingAbilitiesForApi|ArrayObject {
+    public function getResistanceModifyingAbilitiesForApi(): ResistanceModifyingAbilitiesForApi|array {
         return $this->resistanceModifyingAbilitiesForApi;
     }
 

@@ -27,7 +27,7 @@ class RegisteredPokemonDataDao {
     }
 
     public function getPokemonDataByName(string $name): Object|bool {
-        $query = $this->database->prepare("SELECT * FROM POKEMON WHERE NAME LIKE '$name';");
+        $query = $this->database->prepare("SELECT * FROM POKEMON WHERE NAME LIKE '" . $name . "';");
         $query->execute();
         return $query->fetch();
     }

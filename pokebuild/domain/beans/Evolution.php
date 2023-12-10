@@ -2,16 +2,16 @@
 
 class Evolution {
 
-    private int $id;
+    private int $pokedexId;
     private string $name;
-
+    
     public function __construct(int $id, string $name) {
-        $this->id = $id;
+        $this->pokedexId = $id;
         $this->name = $name;
     }
 
     public function getId(): int {
-        return $this->id;
+        return $this->pokedexId;
     }
 
     public function getName(): string {

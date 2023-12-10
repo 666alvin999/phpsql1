@@ -5,7 +5,7 @@ class PokemonService {
     public function convertPokemonToArray(Pokemon $pokemon) {
         $preEvolution = "none";
 
-        if (get_class($pokemon->getPreEvolution()) == "PreEvolution") {
+        if (gettype($pokemon->getPreEvolution()) != "string") {
             $preEvolution = array(
                 'name' => $pokemon->getPreEvolution()->getName(),
                 'pokedexId' => $pokemon->getPreEvolution()->getPokedexId()

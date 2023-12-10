@@ -10,12 +10,16 @@ class PokemonDataAdapter implements PokemonPort {
     private PokemonDataFetcher $pokemonDataFetcher;
     private RegisteredPokemonDataDao $registeredPokemonDataDao;
     private RegisteredPokemonStatsDao $registeredPokemonStatsDao;
+    private RegisteredPokemonEvolutionsDao $registeredPokemonEvolutionsDao;
+    private RegisteredPokemonTypeAffinitiesDao $registeredPokemonTypeAffinitiesDao;
     private PokemonDataMapper $pokemonDataMapper;
 
-    public function __construct(PokemonDataFetcher $pokemonDataFetcher, RegisteredPokemonDataDao $registeredPokemonDataDao, RegisteredPokemonStatsDao $registeredPokemonStatsDao, PokemonDataMapper $pokemonDataMapper) {
+    public function __construct(PokemonDataFetcher $pokemonDataFetcher, RegisteredPokemonDataDao $registeredPokemonDataDao, RegisteredPokemonStatsDao $registeredPokemonStatsDao, RegisteredPokemonEvolutionsDao $registeredPokemonEvolutionsDao, RegisteredPokemonTypeAffinitiesDao $registeredPokemonTypeAffinitiesDao, PokemonDataMapper $pokemonDataMapper) {
         $this->pokemonDataFetcher = $pokemonDataFetcher;
         $this->registeredPokemonDataDao = $registeredPokemonDataDao;
         $this->registeredPokemonStatsDao = $registeredPokemonStatsDao;
+        $this->registeredPokemonEvolutionsDao = $registeredPokemonEvolutionsDao;
+        $this->registeredPokemonTypeAffinitiesDao = $registeredPokemonTypeAffinitiesDao;
         $this->pokemonDataMapper = $pokemonDataMapper;
     }
 
@@ -30,8 +34,8 @@ class PokemonDataAdapter implements PokemonPort {
                 $pokemon = $this->pokemonDataMapper->mapToPokemonFromFetcher($pokemonData);
                 $this->registeredPokemonDataDao->insertPokemonData($pokemon);
                 $this->registeredPokemonStatsDao->insertPokemonStat($pokemon);
-                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon->getEvolutions());
-//                $this->registeredPokemonTypeAffinities->insertPokemonAffinities($pokemon->getResistances(), $pokemon->getVulnerabilities());
+                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon);
+                $this->registeredPokemonTypeAffinitiesDao->insertPokemonTypeAffinities($pokemon);
 
                 return $pokemon;
             }
@@ -39,11 +43,11 @@ class PokemonDataAdapter implements PokemonPort {
             return null;
         }
 
-        $knownPokemonData = $this->registeredPokemonStatsDao->getPokemonStatById($knownPokemonData['ID']);
-//        $knownPokemonData = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsByName($name);
-//        $knownPokemonData = $this->registeredPokemonTypeAffinities->getPokemonTypeAffinitiesByName($name);
+        $knownPokemonStats = $this->registeredPokemonStatsDao->getPokemonStatById($knownPokemonData->ID);
+        $knownPokemonEvolutions = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsById($knownPokemonData->ID);
+        $typeAffinities = $this->registeredPokemonTypeAffinitiesDao->getPokemonTypeAffinitiesByID($name);
 
-        return $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData);
+        return $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData, $knownPokemonStats, $knownPokemonEvolutions, $typeAffinities);
     }
 
     public function getPokemonById(int $id): ?Pokemon {
