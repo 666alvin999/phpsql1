@@ -9,7 +9,7 @@ class Pokemon {
     private string $spriteUrl;
     private Stat $stat;
     private array $types;
-    private string $ability;
+    private string $modifyingTypeAffinitiesAbility;
     private int $generation;
     private array $typeAffinities;
     private PreEvolution | string $preEvolution;
@@ -23,7 +23,7 @@ class Pokemon {
         $this->spriteUrl = $spriteUrl;
         $this->stat = $stat;
         $this->types = $types;
-        $this->ability = $ability;
+        $this->modifyingTypeAffinitiesAbility = $ability;
         $this->generation = $generation;
         $this->typeAffinities = $typeAffinities;
         $this->preEvolution = $preEvolution;
@@ -58,8 +58,8 @@ class Pokemon {
         return $this->types;
     }
 
-    public function getAbility(): string {
-        return $this->ability;
+    public function getModifyingTypeAffinitiesAbility(): string {
+        return $this->modifyingTypeAffinitiesAbility;
     }
 
     public function getGeneration(): int {

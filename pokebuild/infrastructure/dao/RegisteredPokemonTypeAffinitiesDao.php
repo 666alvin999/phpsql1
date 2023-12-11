@@ -23,15 +23,16 @@ class RegisteredPokemonTypeAffinitiesDao {
     public function getPokemonTypeAffinitiesById(int $id): array {
         $query = $this->database->prepare("SELECT * FROM POKEMON_TYPE_AFFINITY WHERE ID = $id");
         $query->execute();
-        return PokemonDataTransformer::createPokemonEvolutionsFromArray($query->fetchAll());
+
+        return PokemonDataTransformer::createPokemonTypeAffinitiesFromArray($query->fetchAll());
     }
 
     public function insertPokemonTypeAffinities(Pokemon $pokemon) {
         foreach ($pokemon->getTypeAffinities() as $typeAffinity) {
             $sql = 'INSERT INTO POKEMON_TYPE_AFFINITY VALUES ('
-                . $pokemon->getId() . ', '
-                . $typeAffinity->getTypeName() . ', '
-                . '\'' . $typeAffinity->getDamageMultiplier() . '\');';
+                . $pokemon->getId() . ", "
+                . " '" . $typeAffinity->getTypeName() . "', "
+                . " '" . $typeAffinity->getDamageMultiplier() . "');";
 
             $this->database->prepare($sql)->execute();
         }

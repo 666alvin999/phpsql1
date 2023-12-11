@@ -3,6 +3,7 @@
 include_once "infrastructure/dto/ResistanceModifyingAbilitiesForApi.php";
 include_once "domain/beans/PreEvolution.php";
 include_once "domain/beans/Evolution.php";
+include_once "domain/beans/TypeAffinity.php";
 include_once "domain/beans/Stat.php";
 
 class PokemonDataTransformer {
@@ -23,19 +24,25 @@ class PokemonDataTransformer {
             $apiPreEvolution = new PreEvolution($jsonData->apiPreEvolution->name, $jsonData->apiPreEvolution->pokedexIdd);
         }
 
+
+
+        $stats = self::createPokemonStatFromObject($jsonData->stats);
+        $evolutions = self::createPokemonEvolutionsFromArray($jsonData->apiEvolutions);
+        $typeAffinities = count($jsonData->apiResistancesWithAbilities) != 0 ? self::createPokemonTypeAffinitiesFromArray($jsonData->apiResistancesWithAbilities) : self::createPokemonTypeAffinitiesFromArray($jsonData->apiResistances);
+
         return new PokemonData(
             $jsonData->id,
             $jsonData->pokedexId,
             $jsonData->name,
             $jsonData->image,
             $jsonData->sprite,
-            self::createPokemonStatFromObject($jsonData->stats),
+            $stats,
             $jsonData->apiTypes,
             $jsonData->apiGeneration,
             $resistanceModifyingAbilitiesForApi,
-            self::createPokemonEvolutionsFromArray($jsonData->apiEvolutions),
+            $evolutions,
             $apiPreEvolution,
-            self::createPokemonTypeAffinitiesFromArray($jsonData->apiResistancesWithAbilities)
+            $typeAffinities
         );
     }
 
@@ -68,7 +75,7 @@ class PokemonDataTransformer {
 
         foreach ($typeAffinitiesArray as $typeAffinity) {
             $typeAffinities[] = new TypeAffinity(
-                property_exists($typeAffinity, 'NAME') ? $typeAffinity->NAME : $typeAffinity->name,
+                property_exists($typeAffinity, 'TYPE_NAME') ? $typeAffinity->TYPE_NAME : $typeAffinity->name,
                 property_exists($typeAffinity, 'DAMAGE_MULTIPLIER') ? $typeAffinity->DAMAGE_MULTIPLIER : $typeAffinity->damage_multiplier
             );
         }

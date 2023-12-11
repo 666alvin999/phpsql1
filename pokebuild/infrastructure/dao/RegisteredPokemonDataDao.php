@@ -33,17 +33,17 @@ class RegisteredPokemonDataDao {
     }
 
     public function insertPokemonData(Pokemon $pokemon) {
-        $typefield = $pokemon->getTypes()[0]->name;
+        $typefield = $pokemon->getTypes()[0]->getTypeName() . ';' . $pokemon->getTypes()[0]->getImageUrl();
 
         if (count($pokemon->getTypes()) == 2) {
-            $typefield = $typefield . ';' . $pokemon->getTypes()[1]->name;
+            $typefield = $typefield . ';' . $pokemon->getTypes()[1]->getTypeName();
         }
 
         $sql = 'INSERT INTO POKEMON (ID, POKEDEX_ID, NAME, ABILITY, IMAGE_URL, SPRITE_URL, TYPES, GENERATION, PRE_EVOLUTION) VALUES ('
             . $pokemon->getId() . ","
             . $pokemon->getPokedexId() . ", "
             . "'" . $pokemon->getName() . "', "
-            . "'" . $pokemon->getAbility() . "', "
+            . "'" . $pokemon->getModifyingTypeAffinitiesAbility() . "', "
             . "'" . $pokemon->getImageUrl() . "', "
             . "'" . $pokemon->getSpriteUrl() . "', "
             . "'" . $typefield . "', "

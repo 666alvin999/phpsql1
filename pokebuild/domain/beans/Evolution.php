@@ -10,7 +10,7 @@ class Evolution {
         $this->name = $name;
     }
 
-    public function getId(): int {
+    public function getPokedexId(): int {
         return $this->pokedexId;
     }
 

@@ -23,6 +23,7 @@ class RegisteredPokemonEvolutionsDao {
     public function getPokemonEvolutionsById(int $id): array {
         $query = $this->database->prepare("SELECT * FROM POKEMON_EVOLUTION WHERE ID = $id");
         $query->execute();
+
         return PokemonDataTransformer::createPokemonEvolutionsFromArray($query->fetchAll());
     }
 
@@ -30,7 +31,7 @@ class RegisteredPokemonEvolutionsDao {
         foreach ($pokemon->getEvolutions() as $evolution) {
             $sql = 'INSERT INTO POKEMON_EVOLUTION VALUES ('
                 . $pokemon->getId() . ', '
-                . $evolution->getId(). ', '
+                . $evolution->getPokedexId(). ', '
                 . '\'' . $evolution->getName() . '\');';
 
             $this->database->prepare($sql)->execute();

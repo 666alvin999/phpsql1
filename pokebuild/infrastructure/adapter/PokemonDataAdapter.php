@@ -45,7 +45,7 @@ class PokemonDataAdapter implements PokemonPort {
 
         $knownPokemonStats = $this->registeredPokemonStatsDao->getPokemonStatById($knownPokemonData->ID);
         $knownPokemonEvolutions = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsById($knownPokemonData->ID);
-        $typeAffinities = $this->registeredPokemonTypeAffinitiesDao->getPokemonTypeAffinitiesByID($name);
+        $typeAffinities = $this->registeredPokemonTypeAffinitiesDao->getPokemonTypeAffinitiesById($knownPokemonData->ID);
 
         return $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData, $knownPokemonStats, $knownPokemonEvolutions, $typeAffinities);
     }
