@@ -15,4 +15,14 @@ class PokemonPresenter {
         return json_encode($this->pokemonService->convertPokemonToArray($pokemon));
     }
 
+    public function presentAll(array $pokemons) {
+        $presentedPokemons = [];
+
+        foreach ($pokemons as $pokemon) {
+            $presentedPokemons[] = $this->pokemonService->convertPokemonToArray($pokemon);
+        }
+
+        return json_encode($presentedPokemons);
+    }
+
 }

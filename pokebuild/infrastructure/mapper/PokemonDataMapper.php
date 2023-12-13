@@ -33,7 +33,13 @@ class PokemonDataMapper {
 
     public function mapToPokemonFromDaos(Object $pokemonData, Stat $pokemonStat, array $pokemonEvolutions, array $pokemonTypeAffinities): Pokemon {
         $resistanceModifyingAbilitiesForApi = $pokemonData->ABILITY != "NULL" ? $pokemonData->ABILITY : "none";
-        $preEvolution = $pokemonData->PRE_EVOLUTION != null ? $pokemonData->PRE_EVOLUTION : "none";
+
+        $preEvolution = "none";
+
+        if ($pokemonData->PRE_EVOLUTION != null) {
+            $explodedPreEvolution = explode(";", $pokemonData->PRE_EVOLUTION);
+            $preEvolution = new PreEvolution($explodedPreEvolution[1], $explodedPreEvolution[0]);
+        }
 
         $types = [];
 

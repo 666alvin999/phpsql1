@@ -8,4 +8,6 @@ interface PokemonPort {
 
     public function getPokemonById(int $id): ?Pokemon;
 
+    public function getAllPokemons(): array;
+
 }

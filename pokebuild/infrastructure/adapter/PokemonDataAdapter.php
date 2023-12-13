@@ -59,20 +59,36 @@ class PokemonDataAdapter implements PokemonPort {
             if ($pokemonData) {
                 $pokemon = $this->pokemonDataMapper->mapToPokemonFromFetcher($pokemonData);
                 $this->registeredPokemonDataDao->insertPokemonData($pokemon);
-//                $this->registeredPokemonStatDao->insertPokemonStat($pokemon->getStat());
-//                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon->getEvolutions());
-//                $this->registeredPokemonTypeAffinities->insertPokemonAffinities($pokemon->getResistances(), $pokemon->getVulnerabilities());
+                $this->registeredPokemonStatsDao->insertPokemonStat($pokemon);
+                $this->registeredPokemonEvolutionsDao->insertPokemonEvolutions($pokemon);
+                $this->registeredPokemonTypeAffinitiesDao->insertPokemonTypeAffinities($pokemon);
 
                 return $pokemon;
             }
 
             return null;
         }
-//
-//        $knownPokemonData = $this->registeredPokemonStatDao->getPokemonStatByName($id);
-//        $knownPokemonData = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsByName($id);
-//        $knownPokemonData = $this->registeredPokemonTypeAffinities->getPokemonTypeAffinitiesByName($id);
 
-        return $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData);
+        $knownPokemonStats = $this->registeredPokemonStatsDao->getPokemonStatById($id);
+        $knownPokemonEvolutions = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsById($id);
+        $knownPokemonTypeAffinities = $this->registeredPokemonTypeAffinitiesDao->getPokemonTypeAffinitiesById($id);
+
+        return $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData, $knownPokemonStats, $knownPokemonEvolutions, $knownPokemonTypeAffinities);
+    }
+
+    public function getAllPokemons(): array {
+        $knownPokemonDataArray = $this->registeredPokemonDataDao->getAllPokemonData();
+
+        $pokemons = [];
+
+        foreach ($knownPokemonDataArray as $knownPokemonData) {
+            $knownPokemonStats = $this->registeredPokemonStatsDao->getPokemonStatById($knownPokemonData->ID);
+            $knownPokemonEvolutions = $this->registeredPokemonEvolutionsDao->getPokemonEvolutionsById($knownPokemonData->ID);
+            $knownPokemonTypeAffinities = $this->registeredPokemonTypeAffinitiesDao->getPokemonTypeAffinitiesById($knownPokemonData->ID);
+
+            $pokemons[] =  $this->pokemonDataMapper->mapToPokemonFromDaos($knownPokemonData, $knownPokemonStats, $knownPokemonEvolutions, $knownPokemonTypeAffinities);
+        }
+
+        return $pokemons;
     }
 }

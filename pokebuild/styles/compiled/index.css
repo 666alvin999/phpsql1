@@ -1,0 +1,97 @@
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+body #registered-pokemon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+body #registered-pokemon > #pokemon-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 20px;
+  padding: 5% 0;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card {
+  overflow: hidden;
+  border: solid black 4px;
+  border-radius: 20px;
+  width: 230px;
+  aspect-ratio: 2/3;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70%;
+  border-bottom: solid black 4px;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > .pokemon-name {
+  color: white !important;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > img {
+  width: 50%;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > .pokemon-types {
+  background-color: white;
+  border-radius: 25px;
+  padding: 5px 10px;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > .pokemon-types > img {
+  width: 25px;
+  aspect-ratio: 1/1;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons > * {
+  height: 100%;
+  width: 50%;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons > .pre-evolution {
+  border-right: solid black 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons > .pre-evolution > * {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons > .evolution {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .related-pokemons > .evolution > * {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=index.css.map */

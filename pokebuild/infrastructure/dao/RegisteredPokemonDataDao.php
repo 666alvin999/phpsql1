@@ -20,13 +20,13 @@ class RegisteredPokemonDataDao {
         }
     }
 
-    public function getPokemonById(int $id): Object|bool {
+    public function getPokemonById(int $id): object|bool {
         $query = $this->database->prepare("SELECT * FROM POKEMON WHERE ID = $id");
         $query->execute();
         return $query->fetch();
     }
 
-    public function getPokemonDataByName(string $name): Object|bool {
+    public function getPokemonDataByName(string $name): object|bool {
         $query = $this->database->prepare("SELECT * FROM POKEMON WHERE NAME LIKE '" . $name . "';");
         $query->execute();
         return $query->fetch();
@@ -36,7 +36,7 @@ class RegisteredPokemonDataDao {
         $typefield = $pokemon->getTypes()[0]->getTypeName() . ';' . $pokemon->getTypes()[0]->getImageUrl();
 
         if (count($pokemon->getTypes()) == 2) {
-            $typefield = $typefield . ';' . $pokemon->getTypes()[1]->getTypeName();
+            $typefield = $typefield . ';' . $pokemon->getTypes()[1]->getTypeName() . ';' . $pokemon->getTypes()[1]->getImageUrl();;
         }
 
         $sql = 'INSERT INTO POKEMON (ID, POKEDEX_ID, NAME, ABILITY, IMAGE_URL, SPRITE_URL, TYPES, GENERATION, PRE_EVOLUTION) VALUES ('
@@ -50,7 +50,7 @@ class RegisteredPokemonDataDao {
             . $pokemon->getGeneration() . ", ";
 
         if (gettype($pokemon->getPreEvolution()) != "string") {
-            $sql = $sql . $pokemon->getPreEvolution()->getPokedexId();
+            $sql = $sql . "'" . $pokemon->getPreEvolution()->getPokedexId() . ';' . $pokemon->getPreEvolution()->getName() . "'";
         } else {
             $sql = $sql . 'NULL';
         }
@@ -58,6 +58,12 @@ class RegisteredPokemonDataDao {
         $sql = $sql . ');';
 
         $this->database->prepare($sql)->execute();
+    }
+
+    public function getAllPokemonData() {
+        $query = $this->database->prepare("SELECT * FROM POKEMON;");
+        $query->execute();
+        return $query->fetchAll();
     }
 
 }

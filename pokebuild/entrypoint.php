@@ -4,11 +4,11 @@ require_once("PokemonControllerInitializer.php");
 
 $controller = PokemonControllerInitializer::initController();
 
-if ($_GET['name']) {
+if (array_key_exists("name", $_GET)) {
     echo $controller->getPokemonByName($_GET['name']);
 }
 else {
-    echo 'vonjour';
+    echo $controller->getAllPokemons();
 }
 
 

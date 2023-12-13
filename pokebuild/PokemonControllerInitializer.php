@@ -3,6 +3,7 @@
 include_once "domain/service/PokemonService.php";
 include_once "application/usecase/GetPokemonByName.php";
 include_once "application/usecase/GetPokemonById.php";
+include_once "application/usecase/GetAllPokemons.php";
 include_once "infrastructure/adapter/PokemonDataAdapter.php";
 include_once "infrastructure/fetcher/PokemonDataFetcher.php";
 include_once "infrastructure/dao/RegisteredPokemonDataDao.php";
@@ -26,7 +27,8 @@ class PokemonControllerInitializer {
         $presenter = new PokemonPresenter($pokemonService);
         $getPokemonByName = new GetPokemonByName($adapter, $presenter);
         $getPokemonById = new GetPokemonById($adapter, $presenter);
-        return new PokemonController($getPokemonByName, $getPokemonById);
+        $getAllPokemons = new GetAllPokemons($adapter, $presenter);
+        return new PokemonController($getPokemonByName, $getAllPokemons, $getPokemonById);
     }
 
 }
