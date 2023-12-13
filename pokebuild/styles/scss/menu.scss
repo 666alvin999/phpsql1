@@ -60,9 +60,9 @@
     & > div {
         display: flex;
         justify-content: center;
+        width: 100%;
 
         & > #gen-filter {
-            width: 80%;
             height: 20px;
             padding: 10px 10px;
             background-color: white;

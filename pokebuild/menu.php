@@ -6,8 +6,8 @@
     </div>
 
     <div>
-        <form method="GET" action="http://localhost/phpsql1/pokebuild/getPokemon.php">
-            <input type="text" id="searchInput" name="name-or-id" placeholder="Nom ou ID du Pokémon..."/>
+        <form method="GET" action="http://localhost/phpsql1/pokebuild/pokemon.php">
+            <input type="text" id="searchInput" name="name" placeholder="Nom ou ID du Pokémon..."/>
 
             <button type="submit">
                 <img src="assets/search.png"/>
@@ -23,7 +23,7 @@
 
             <?php foreach ($gens as $gen) : ?>
                 <a href="http://localhost/phpsql1/pokebuild/index.php?gen=<?= $gen?>">
-                    Gen <?= $gen ?>
+                    G<?= $gen ?>
                 </a>
             <?php endforeach; ?>
         </div>
