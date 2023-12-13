@@ -45,7 +45,9 @@ body {
                     border-bottom: solid black 4px;
 
                     & > .pokemon-name {
-                        color: white!important;
+                        background-color: white;
+                        border-radius: 20px;
+                        border: 2px solid black;
                     }
 
                     & > img {

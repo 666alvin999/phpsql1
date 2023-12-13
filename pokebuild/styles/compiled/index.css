@@ -45,7 +45,9 @@ body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon {
   border-bottom: solid black 4px;
 }
 body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > .pokemon-name {
-  color: white !important;
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid black;
 }
 body #registered-pokemon > #pokemon-cards-grid > .pokemon-card > .main-pokemon > img {
   width: 50%;

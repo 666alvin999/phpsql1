@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="styles/compiled/index.css">
+    <link rel="stylesheet" href="styles/compiled/index.css"/>
 
     <title>PokéBuilder</title>
 </head>
@@ -20,12 +20,14 @@
         <?php foreach ($pokemons as $pokemon): ?>
             <div class="pokemon-card">
                 <div class="main-pokemon">
-                    <h2 class="pokemon-name">
-                        <a href="http://localhost/phpsql1/pokebuild/entrypoint.php/?name=<?= $pokemon->name ?>">
-                            <?= $pokemon->name ?>
-                        </a>
-                        #<?= $pokemon->id ?>
-                    </h2>
+                    <div class="pokemon-name">
+                        <h2>
+                            <a href="http://localhost/phpsql1/pokebuild/entrypoint.php/?name=<?= $pokemon->name ?>">
+                                <?= $pokemon->name ?>
+                            </a>
+                            #<?= $pokemon->id ?>
+                        </h2>
+                    </div>
 
                     <img src="<?= $pokemon->imageUrl ?>"/>
 
