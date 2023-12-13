@@ -7,14 +7,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="styles/compiled/index.css"/>
+    <link rel="stylesheet" href="styles/compiled/menu.css"/>
 
     <title>PokéBuilder</title>
 </head>
 <body>
+<?php
+require "menu.php";
+?>
+
 <section id="registered-pokemon">
     <?php
-    $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/entrypoint.php"));
+    if (array_key_exists("type", $_GET)) {
+        $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/getPokemon.php?type=" . $_GET['type']));
+    } elseif (array_key_exists("gen", $_GET)) {
+        $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/getPokemon.php?gen=" . $_GET['gen']));
+    } else {
+        $pokemons = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/getPokemon.php"));
+    }
+
     ?>
+
+    <div id="type-filter">
+        <?php
+        $knownTypes = json_decode(file_get_contents("http://localhost/phpsql1/pokebuild/getTypes.php"))
+        ?>
+
+        <?php foreach ($knownTypes as $type) : ?>
+            <a href="http://localhost/phpsql1/pokebuild/index.php?type=<?= $type->typeName ?>">
+                <img src="<?= $type->imageUrl ?>">
+            </a>
+        <?php endforeach; ?>
+    </div>
 
     <div id="pokemon-cards-grid">
         <?php foreach ($pokemons as $pokemon): ?>
@@ -22,7 +46,7 @@
                 <div class="main-pokemon">
                     <div class="pokemon-name">
                         <h2>
-                            <a href="http://localhost/phpsql1/pokebuild/entrypoint.php/?name=<?= $pokemon->name ?>">
+                            <a href="http://localhost/phpsql1/pokebuild/getPokemon.php/?name-or-id=<?= $pokemon->name ?>">
                                 <?= $pokemon->name ?>
                             </a>
                             #<?= $pokemon->id ?>
@@ -43,7 +67,7 @@
                         <?php if (gettype($pokemon->preEvolution) == "object") : ?>
                             <h3 class="pre-evolution-name">
                                 #<?= $pokemon->preEvolution->pokedexId ?><br/>
-                                <a href="http://localhost/phpsql1/pokebuild/entrypoint.php/?name=<?= $pokemon->preEvolution->name ?>">
+                                <a href="http://localhost/phpsql1/pokebuild/getPokemon.php/?name-or-id=<?= $pokemon->preEvolution->name ?>">
                                     <?= $pokemon->preEvolution->name ?>
                                 </a>
                             </h3>
@@ -59,7 +83,7 @@
                             <?php foreach ($pokemon->evolutions as $evolution) : ?>
                                 <h3 class="evolution-name">
                                     #<?= $evolution->pokedexId ?><br/>
-                                    <a href="http://localhost/phpsql1/pokebuild/entrypoint.php/?name=<?= $evolution->name ?>">
+                                    <a href="http://localhost/phpsql1/pokebuild/getPokemon.php/?name-or-id=<?= $evolution->name ?>">
                                         <?= $evolution->name ?>
                                     </a>
                                 </h3>

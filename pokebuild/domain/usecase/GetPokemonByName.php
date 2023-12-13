@@ -1,11 +1,6 @@
 <?php
 
-include_once "domain/beans/Pokemon.php";
-include_once "application/port/PokemonPort.php";
-include_once "application/presenter/PokemonPresenter.php";
-include_once "presentation/port/GetPokemonByNamePort.php";
-
-class getPokemonByName implements GetPokemonByNamePort {
+class getPokemonByName {
 
     private PokemonPort $pokemonPort;
     private PokemonPresenter $pokemonPresenter;

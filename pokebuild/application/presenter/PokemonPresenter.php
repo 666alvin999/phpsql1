@@ -1,21 +1,22 @@
 <?php
 
 include_once "domain/beans/Pokemon.php";
-include_once "domain/service/PokemonService.php";
+include_once "domain/port/PokemonPresenterPort.php";
+include_once "application/mapper/PokemonMapper.php";
 
-class PokemonPresenter {
+class PokemonPresenter implements PokemonPresenterPort {
 
-    private PokemonService $pokemonService;
+    private PokemonMapper $pokemonService;
 
-    public function __construct(PokemonService $pokemonService) {
+    public function __construct(PokemonMapper $pokemonService) {
         $this->pokemonService = $pokemonService;
     }
 
-    public function present(Pokemon $pokemon) {
+    public function present(Pokemon $pokemon): false|string {
         return json_encode($this->pokemonService->convertPokemonToArray($pokemon));
     }
 
-    public function presentAll(array $pokemons) {
+    public function presentAll(array $pokemons): false|string {
         $presentedPokemons = [];
 
         foreach ($pokemons as $pokemon) {

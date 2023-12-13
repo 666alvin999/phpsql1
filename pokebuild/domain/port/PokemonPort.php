@@ -8,6 +8,14 @@ interface PokemonPort {
 
     public function getPokemonById(int $id): ?Pokemon;
 
+    public function getPokemonByType(string $type): array;
+
     public function getAllPokemons(): array;
+
+    public function getAllPokemonTypes(): array;
+
+    public function getAllPokemonGens(): array;
+
+    public function getPokemonByGen(int $gen): array;
 
 }

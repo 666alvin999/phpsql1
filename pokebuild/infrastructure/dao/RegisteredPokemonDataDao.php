@@ -20,7 +20,7 @@ class RegisteredPokemonDataDao {
         }
     }
 
-    public function getPokemonById(int $id): object|bool {
+    public function getPokemonDataById(int $id): object|bool {
         $query = $this->database->prepare("SELECT * FROM POKEMON WHERE ID = $id");
         $query->execute();
         return $query->fetch();
@@ -30,6 +30,36 @@ class RegisteredPokemonDataDao {
         $query = $this->database->prepare("SELECT * FROM POKEMON WHERE NAME LIKE '" . $name . "';");
         $query->execute();
         return $query->fetch();
+    }
+
+    public function getPokemonByType(string $type) {
+        $query = $this->database->prepare("SELECT * FROM POKEMON WHERE TYPES LIKE '%$type%';");
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getPokemonByGen(int $gen) {
+        $query = $this->database->prepare("SELECT * FROM POKEMON WHERE GENERATION = $gen;");
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getAllPokemonData() {
+        $query = $this->database->prepare("SELECT * FROM POKEMON;");
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getAllPokemonTypes() {
+        $query = $this->database->prepare("SELECT TYPES FROM POKEMON;");
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function getAllPokemonGens() {
+        $query = $this->database->prepare("SELECT GENERATION FROM POKEMON;");
+        $query->execute();
+        return $query->fetchAll();
     }
 
     public function insertPokemonData(Pokemon $pokemon) {
@@ -58,12 +88,6 @@ class RegisteredPokemonDataDao {
         $sql = $sql . ');';
 
         $this->database->prepare($sql)->execute();
-    }
-
-    public function getAllPokemonData() {
-        $query = $this->database->prepare("SELECT * FROM POKEMON;");
-        $query->execute();
-        return $query->fetchAll();
     }
 
 }

@@ -1,15 +1,21 @@
 <?php
 
-class PokemonService {
+class PokemonMapper {
 
-    public function convertPokemonToArray(Pokemon $pokemon) {
+    private TypeMapper $typeMapper;
+
+    public function __construct(TypeMapper $typeMapper) {
+        $this->typeMapper = $typeMapper;
+    }
+
+    public function convertPokemonToArray(Pokemon $pokemon): array {
         $preEvolution = $this->createPokemonPreEvolutionArray($pokemon);
 
         $stat = $this->createPokemonStatArray($pokemon->getStat());
         $evolutions = $this->createPokemonEvolutionsArray($pokemon->getEvolutions());
         $typeAffinities = $this->createPokemonTypeAffinitiesArray($pokemon->getTypeAffinities());
 
-        $types = $this->createPokemonTypesArray($pokemon);
+        $types = $this->typeMapper->createTypesArray($pokemon->getTypes());
 
         return array(
             'id' => $pokemon->getId(),
@@ -66,28 +72,15 @@ class PokemonService {
 
     private function createPokemonPreEvolutionArray(Pokemon $pokemon): array|string {
         $preEvolution = "none";
-        
+
         if (gettype($pokemon->getPreEvolution()) != "string") {
             $preEvolution = array(
                 'name' => $pokemon->getPreEvolution()->getName(),
                 'pokedexId' => $pokemon->getPreEvolution()->getPokedexId()
             );
         }
-        
+
         return $preEvolution;
-    }
-
-    private function createPokemonTypesArray(Pokemon $pokemon): array {
-        $types = [];
-
-        foreach ($pokemon->getTypes() as $type) {
-            $types[] = array(
-                'typeName' => $type->getTypeName(),
-                'imageUrl' => $type->getImageUrl()
-            );
-        }
-
-        return $types;
     }
 
 }

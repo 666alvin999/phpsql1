@@ -24,8 +24,6 @@ class PokemonDataTransformer {
             $apiPreEvolution = new PreEvolution($jsonData->apiPreEvolution->name, $jsonData->apiPreEvolution->pokedexIdd);
         }
 
-
-
         $stats = self::createPokemonStatFromObject($jsonData->stats);
         $evolutions = self::createPokemonEvolutionsFromArray($jsonData->apiEvolutions);
         $typeAffinities = count($jsonData->apiResistancesWithAbilities) != 0 ? self::createPokemonTypeAffinitiesFromArray($jsonData->apiResistancesWithAbilities) : self::createPokemonTypeAffinitiesFromArray($jsonData->apiResistances);
@@ -81,6 +79,33 @@ class PokemonDataTransformer {
         }
 
         return $typeAffinities;
+    }
+
+    public static function createTypesArrayFromDaoTypes(array $daoTypes): array {
+        $types = [];
+
+        foreach ($daoTypes as $daoType) {
+            $explodedType = explode(";", $daoType->TYPES);
+
+            for ($i = 0; $i < count($explodedType); $i += 2) {
+                if (!array_key_exists($explodedType[$i], $types)) {
+                    $types[$explodedType[$i]] = new Type($explodedType[$i], $explodedType[$i+1]);
+                }
+            }
+        }
+
+        return $types;
+    }
+
+    public static function createGenArrayFromDaoGens(array $daoGens): array {
+        $gens = [];
+
+        foreach ($daoGens as $daoGen) {
+            if (!in_array($daoGen->GENERATION, $gens))
+            $gens[] = $daoGen->GENERATION;
+        }
+
+        return $gens;
     }
 
 }

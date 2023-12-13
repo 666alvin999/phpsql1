@@ -1,8 +1,6 @@
 <?php
 
-include_once "presentation/port/GetAllPokemonsPort.php";
-
-class GetAllPokemons implements GetAllPokemonsPort {
+class GetAllPokemons {
 
     private PokemonPort $pokemonPort;
     private PokemonPresenter $pokemonPresenter;
