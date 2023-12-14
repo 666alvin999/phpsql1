@@ -81,6 +81,7 @@
     </div>
 </div>
 
+<?php if (gettype($pokemon->preEvolution) != "string" || count($pokemon->evolutions) > 0) : ?>
 <div id="related-pokemons">
     <?php if (gettype($pokemon->preEvolution) != "string") : ?>
         <div class="related">
@@ -121,6 +122,7 @@
         </div>
     <?php endforeach; ?>
 </div>
+<?php endif; ?>
 
 <?php if ($pokemon->ability != "none") : ?>
     <div id="ability">
